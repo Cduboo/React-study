@@ -47,10 +47,6 @@ function App() {
           <Route path="member" element={<div>member</div>}></Route>
           <Route path="location" element={<div>location</div>}></Route>
         </Route>
-        <Route path="/event" element={<><h4>오늘의 이벤트</h4><Outlet></Outlet></>}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>}></Route>
-          <Route path="two" element={<div>생일기념 구폰받기</div>}></Route>
-        </Route>
         <Route path="*" element={<div>잘못된 요청입니다.</div>} />
       </Routes>
   
@@ -75,7 +71,8 @@ function About() {
   return( 
     <div>
       About
-      <Outlet></Outlet>
+      {/* Route 계층 에서 하위 컴포넌트들을 렌더링할 위치를 지정한다. */}
+      <Outlet></Outlet> 
     </div>
   )
 }

@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 
 function Detail(props) {
+  // Route path="/detail/:id" 
+  // id라는 이름으로 보낸 파라미터를 바로 꺼내서 사용할 수 있다. {id : '0'}
   let {id} = useParams();
   let item = props.item.find( e => e.id == id);
-  console.log(id)
+
   return (
     <div className="container">
       <div className="row">
