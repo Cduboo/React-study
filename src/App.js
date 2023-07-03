@@ -19,7 +19,6 @@ function App() {
           <Navbar.Brand onClick={ () => {navigate('/')} }>SHOP</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={ () => {navigate('/')} }>Home</Nav.Link>
-            <Nav.Link onClick={ ()=> {navigate('/detail')} }>Detail</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
