@@ -1,6 +1,6 @@
 import { useEffect, React, useState } from 'react';
-
 import { useParams } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
 
 function Detail(props) {
   // Route path="/detail/:id" 
@@ -32,8 +32,21 @@ function Detail(props) {
     }, 1000)
   },[alertBox])
 
+  //  네비 탭
+  let [tabs, setTabs] = useState(0);
+  // Detail 컴포넌트 애니메이션
+  let [fade, setFade] = useState('');
+  useEffect( () => {
+    setTimeout(() => {
+      setFade('opacity-end');
+    }, 1);
+
+    return () => {
+      setFade('');
+    }
+  }, [])
   return (
-    <div className="container">
+    <div className={`container opacity-start ${fade}`}>
       {/* 조건부 렌더링, 조건이 맞을 경우 && 뒤 컴포넌트를 반환한다. */}
       {alertBox > 0 && <div className="alert alert-warning">{alertBox}초 이내 클릭 시 할인</div>}
       
@@ -48,8 +61,44 @@ function Detail(props) {
           <button className="btn btn-danger">주문하기</button> 
         </div>
       </div>
+
+      <Nav variant="tabs"  defaultActiveKey="tab0">
+          <Nav.Item>
+            <Nav.Link eventKey="tab0" onClick={ () => {setTabs(0)} }>버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="tab1" onClick={ () => {setTabs(1)} }>버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="tab2" onClick={ () => {setTabs(2)} }>버튼2</Nav.Link>
+          </Nav.Item>
+      </Nav>
+      <TabContent tabs={tabs}/>
     </div>
   )
+}
+
+function TabContent(props){
+
+  let [fade, setFade] = useState("");
+  useEffect( () => {
+    setTimeout(() => {
+      setFade("opacity-end");
+    }, 100);
+    return () => {
+      setFade("");
+    }
+  }, [props.tabs])
+
+  if (props.tabs === 0){
+    return <div className={`opacity-start ${fade}`}>내용0</div>
+  }
+  if (props.tabs === 1){
+    return <div className={`opacity-start ${fade}`}>내용1</div>
+  }
+  if (props.tabs === 2){
+    return <div className={`opacity-start ${fade}`}>내용2</div>
+  }
 }
 
 export default Detail;

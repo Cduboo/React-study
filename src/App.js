@@ -5,6 +5,8 @@ import { Button, Navbar, Nav, Container } from 'react-bootstrap';
 import data from './data.js';
 import Detail from './components/Detail.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import axios from 'axios';
+
 function App() {
 
   let [item, setItem] = useState(data);
@@ -22,12 +24,12 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      
+
       <Routes>
+        {/* 메인, 상품 목록 */}
         <Route path="/" element={
           <>
           <div className="main-bg"></div>
-          {/* 상품 출력부 */}
           <div className="container">
             <div className="row">
               {
@@ -39,6 +41,16 @@ function App() {
               }
             </div>
           </div>
+          {/* ajax 요청하여 받은 데이터를 state에 추가하기 */}
+          <Button variant="primary" onClick={ () => {
+            axios.get('https://gist.githubusercontent.com/Cduboo/2b0ff64908348ce677030785c4ab11f2/raw/795c0ca27ec1c22d4fc74839e5a124599136610a/data.json')
+            .then((res) => {
+              let copy = [...item, ...res.data];
+              setItem(copy);
+              //setItem(item.concat(res.data));
+            })
+            .catch(()=>{console.log("실패")})
+          } }>더보기</Button>
           </>
         } />
         <Route path="/detail/:id" element={<Detail item={item} />} />
@@ -48,9 +60,8 @@ function App() {
         </Route>
         <Route path="*" element={<div>잘못된 요청입니다.</div>} />
       </Routes>
-  
+    {/* App end */}
     </div>
-
   );
 
 }
